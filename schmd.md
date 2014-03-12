@@ -1,17 +1,15 @@
 ---
 title:  'Scholarly Markdown: a Markdown-compatible format for academic communication'
-author:
-- name: First Author
-  affiliation: Technical U
-- name: Second Author
-  affiliation: U of Technical
+author: |
+    Author 1 and Author 2  
+    Some affiliation or something
 tags: [test, markdown, scholarly]
 date: January 1, 2000
 ---
 
-## Scholarly Markdown math support
+# Scholarly Markdown math support
 
-### Math as (fenced) code blocks
+## Math as (fenced) code blocks
 
 This is a line of text with a `simple code block` in it.
 
@@ -26,11 +24,15 @@ This is another line of text. Here should be some math: ``\mathbf{F = ma}<2\math
 
 and there should be no line breaks between the displaymath block and here. **This should be bold**. *This should be italic.*
 
+```math_def
+\newcommand{\fx}{f(x)}
+```
+
 The following is a displaymath with an aligned environment in a separate paragraph (preceded with, and followed by, two blank lines), with identifier `matheqn1`. It should automatically be wrapped with the `aligned` environment.
 
 
 ```math {#matheqn1}
-    \mbox{minimize}\quad & f(x) = \max_{i=1,\ldots,m} (a_i^T x + b_i) \\
+    \mbox{minimize}\quad & \fx = \max_{i=1,\ldots,m} (a_i^T x + b_i) \\
     & \|x\|_2 \le \sigma.
 ```
 
@@ -49,17 +51,17 @@ Here is an implicit align math environment consisting of multiple lines of equat
 
 And here is an implicit gather math environment consisting of multiple lines of equations with no newline in between, with no `&` symbol appearing anywhere:
 
-```math
+```math  {#firstGatherMathNumber}
     \left.\begin{aligned}
     B'&=-\partial\times E\\
     E'&=\partial\times B - 4\pi j
     \end{aligned}
-    \right\} \quad \text{Maxwell's equations}
+    \right\} \quad \textsf{Maxwell's equations}
 ```
-```math {#firstGatherMathNumber}
+```math {#secondGatherMathNumber}
 A = B
 ```
-```math
+```math {#thirdgathernumber}
 AAAAAAA = BBBBBB
 ```
 
@@ -72,11 +74,6 @@ f = kg^{-1}
 ```
 
 ```math
-y &= ax \\
-f &= kg^{-1}
-```
-
-```math_plain
 y &= ax \\
 f &= kg^{-1}
 ```
@@ -99,7 +96,7 @@ Below is more internal vertical alignment tests. The first is one that uses `cas
 ```math
 #matheqn2
     P_{r-j}=\begin{cases}
-    0& \text{if $r-j$ is odd},\\
+    0& \ensuremath\text{if $r-j$ is odd},\\
     r!\,(-1)^{(r-j)/2}& \text{if $r-j$ is even},
     \end{cases}
 ```
@@ -113,11 +110,13 @@ and another one that uses `aligned` internally.
     \qquad \text{Maxwell's equations}
 ```
 
-### Math and lists
+
+## Math and lists type 2
 
 Here's a list with both inline and display math environments:
 
-- Item 1
+
+- Item 1 is a famous item
 - Item 2 with a `code block` and ``\mathsf{\text{inline math}}`` with equation ``\mathbf{y=Ax}``
 - Item 3
     - Indented item 4
@@ -135,21 +134,49 @@ Here's a list with both inline and display math environments:
       without breaking this text out of the list and into a pre block
 - Item 4
     1. Numerical Item 1
-    2. Numerical item 2 
+    2. Numerical item 2
 
-## Figures
+# Scholarly Figures
 
+## References to image with attributes
 
-## Algorithms
+This line refers to Figure [#reginfig5]
+
+This line refers to Equation (#matheqn3)
+
+## Images with attributes
+
+The following will be a bunch of figures with attributes:
+![Regular link with attributes](http://i.imgur.com/T2geA8K.jpg){#reglink width=20%}
+![Reference link with attributes][sealpic]{#reflink width=20%}
+Which should all show fine and display a picture with a baby seal.
+
+[sealpic]: http://i.imgur.com/T2geA8K.jpg
+
+Below is more text so that the css doesn't end abruptly! Now we'll have an explicit Scholarly Figure environment!
+
+### Figure: {#figure1}
+![sub](http://i.imgur.com/T2geA8K.jpg){#reginfig1 width=20%}
+![subfig](http://i.imgur.com/T2geA8K.jpg){width=20%}
+![subsub](http://i.imgur.com/T2geA8K.jpg){#reginfig3 width=20%}
+Reference link in its own paragraph and long caption Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
+
+### Figure: {#figure2}
+![fdsaf](http://i.imgur.com/T2geA8K.jpg){#reginfig4 width=40%}
+![woogawooga](http://i.imgur.com/T2geA8K.jpg){#reginfig5 width=40%}
+Reference link in its own paragraph and long caption Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
+
+# Algorithms
 
 Here are some algorithms using various methods
 
-#### Algorithm: Gauss-sidel using `line-blocks` {#alg:gs}
-| Inputs: variables ``A, b``
-| Output: ``\phi``
+### Algorithm: Gauss-sidel using line blocks {#alg:gs}
+
+|  **Inputs**: variables ``A, b``
+|  **Output**: ``\phi``
 | 
-| Choose an initial guess ``\phi`` to the solution
-| **repeat** until convergence
+|  Choose an initial guess ``\phi`` to the solution
+|  **repeat** until convergence
 |     **for** ``i`` **from** 1 **until** ``n`` **do**
 |         ``\sigma \leftarrow 0``
 |         **for** ``j`` **from** 1 **until** ``n`` **do**
@@ -160,29 +187,9 @@ Here are some algorithms using various methods
 |         ``\phi_i \leftarrow \frac 1 {a_{ii}} (b_i - \sigma)``
 |     **end** (``i``-loop)
 |     check if convergence is reached
-| **end** (repeat)
+|  **end** (repeat)
 
 
-#### Algorithm: EPSI using `algorithmic` {#alg:epsi}
-\begin{algorithmic}        
-\STATE \textbf{Input: } $\textsf{target residual energy } \tilde{\sigma} \textsf{, recorded surface seismic data } \vector{p}$
-\STATE $\evector{g}_0 \leftarrow \textsf{initialize via single event picking as described in text}$
-\STATE $\evector{q}_0 \leftarrow \argmin_\vector{q} \  \|\vector{p} - \vector{M}_{\tilde{g}_0} \vector{q}\|_2^2 \quad\textsf{subject to}\quad\vector{q} \in \Lambda$
-\STATE $\evector{g_0} \leftarrow \textsf{reset to zero vector}$
-\STATE $\textsf{initialize iteration counter }k \leftarrow 0,\ \textsf{$\ell_1$-norm constraint }\tau_0 \leftarrow 0$
-\STATE $\textsf{if using transforms, set } \vector{S}^{H} \textsf{ as synthesis operator, otherwise set }  \vector{S}^{H} = \vector{I}$
-\REPEAT
-\STATE $\tau_{k+1} \leftarrow \textsf{determine from } \tilde{\sigma}\ \textsf{and}\ \tau_k \textsf{ using Newton's method on the Pareto curve}$
-\STATE $\vector{x}  \leftarrow \argmin_{\vector{x}} \|\vector{p} - \vector{M}_{\tilde{q}_k}\vector{S}^{H}\vector{x}\|_2 \quad\textsf{subject to}\quad\|\vector{x}\|_1 \le \tau_{k+1}$
-\STATE $\evector{g}_{k+1} \leftarrow \vector{S}^{H}\vector{x}$
-\STATE $\textsf{scale } \evector{g}_{k+1} \textsf{ by } s_{k+1}$ \textsf{according to \ref{eq:gkScaling}}
-\STATE $\evector{q}_{k+1} \leftarrow \argmin_\vector{q} \  \|\vector{p} - \vector{M}_{\tilde{g}_{k+1}} \vector{q}\|_2 \quad\textsf{subject to}\quad\vector{q} \in \Lambda$
-\STATE $\textsf{undo scaling of } \evector{g}_{k+1} \textsf{ by } s_{k+1}$
-\STATE $k \leftarrow k+1$
-\UNTIL{$\|\vector{p} - M(\evector{g}_k,\evector{q}_k)\|_2 \le \tilde{\sigma} \textsf{, or a predetermined iteration limit is reached}$}
-\STATE \textbf{Output: } $\textsf{estimated primary Green's function } \evector{g}_k \textsf{, estimated source signature wavelet } \evector{q}_k$
-\end{algorithmic}
-![here is a picture](picgif.gif)
+### Algorithm: EPSI using `algorithmic` {#alg:epsi}
+![here is a picture](picgif.png)
 This is the caption of the Algorithm (see [#freedom])
-
-
