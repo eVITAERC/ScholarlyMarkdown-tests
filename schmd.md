@@ -138,3 +138,51 @@ Here's a list with both inline and display math environments:
     2. Numerical item 2 
 
 ## Figures
+
+
+## Algorithms
+
+Here are some algorithms using various methods
+
+#### Algorithm: Gauss-sidel using `line-blocks` {#alg:gs}
+| Inputs: variables ``A, b``
+| Output: ``\phi``
+| 
+| Choose an initial guess ``\phi`` to the solution
+| **repeat** until convergence
+|     **for** ``i`` **from** 1 **until** ``n`` **do**
+|         ``\sigma \leftarrow 0``
+|         **for** ``j`` **from** 1 **until** ``n`` **do**
+|             **if** ``j \ne i`` **then**
+|                 ``\sigma \leftarrow \sigma + a_{ij} \phi_j``
+|             **end if**
+|         **end** (``j``-loop)
+|         ``\phi_i \leftarrow \frac 1 {a_{ii}} (b_i - \sigma)``
+|     **end** (``i``-loop)
+|     check if convergence is reached
+| **end** (repeat)
+
+
+#### Algorithm: EPSI using `algorithmic` {#alg:epsi}
+\begin{algorithmic}        
+\STATE \textbf{Input: } $\textsf{target residual energy } \tilde{\sigma} \textsf{, recorded surface seismic data } \vector{p}$
+\STATE $\evector{g}_0 \leftarrow \textsf{initialize via single event picking as described in text}$
+\STATE $\evector{q}_0 \leftarrow \argmin_\vector{q} \  \|\vector{p} - \vector{M}_{\tilde{g}_0} \vector{q}\|_2^2 \quad\textsf{subject to}\quad\vector{q} \in \Lambda$
+\STATE $\evector{g_0} \leftarrow \textsf{reset to zero vector}$
+\STATE $\textsf{initialize iteration counter }k \leftarrow 0,\ \textsf{$\ell_1$-norm constraint }\tau_0 \leftarrow 0$
+\STATE $\textsf{if using transforms, set } \vector{S}^{H} \textsf{ as synthesis operator, otherwise set }  \vector{S}^{H} = \vector{I}$
+\REPEAT
+\STATE $\tau_{k+1} \leftarrow \textsf{determine from } \tilde{\sigma}\ \textsf{and}\ \tau_k \textsf{ using Newton's method on the Pareto curve}$
+\STATE $\vector{x}  \leftarrow \argmin_{\vector{x}} \|\vector{p} - \vector{M}_{\tilde{q}_k}\vector{S}^{H}\vector{x}\|_2 \quad\textsf{subject to}\quad\|\vector{x}\|_1 \le \tau_{k+1}$
+\STATE $\evector{g}_{k+1} \leftarrow \vector{S}^{H}\vector{x}$
+\STATE $\textsf{scale } \evector{g}_{k+1} \textsf{ by } s_{k+1}$ \textsf{according to \ref{eq:gkScaling}}
+\STATE $\evector{q}_{k+1} \leftarrow \argmin_\vector{q} \  \|\vector{p} - \vector{M}_{\tilde{g}_{k+1}} \vector{q}\|_2 \quad\textsf{subject to}\quad\vector{q} \in \Lambda$
+\STATE $\textsf{undo scaling of } \evector{g}_{k+1} \textsf{ by } s_{k+1}$
+\STATE $k \leftarrow k+1$
+\UNTIL{$\|\vector{p} - M(\evector{g}_k,\evector{q}_k)\|_2 \le \tilde{\sigma} \textsf{, or a predetermined iteration limit is reached}$}
+\STATE \textbf{Output: } $\textsf{estimated primary Green's function } \evector{g}_k \textsf{, estimated source signature wavelet } \evector{q}_k$
+\end{algorithmic}
+![here is a picture](picgif.gif)
+This is the caption of the Algorithm (see [#freedom])
+
+

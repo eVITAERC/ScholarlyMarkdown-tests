@@ -79,10 +79,33 @@ $if(graphics)$
 }
 \makeatother
 \let\Oldincludegraphics\includegraphics
-{%
- \catcode`\@=11\relax%
- \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}%
-}%
+{
+ \catcode`\@=11\relax
+ \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}
+}
+$endif$
+\usepackage{caption}
+\usepackage{subfig}
+$if(algorithms)$
+\usepackage{algorithm} % <- from the `algorithms` package
+% Rename the `algorithm` float environment so that it doesn't
+% conflict with the one provided by `algorithm2e`, which is
+% also called `algorithm`. The following environments are renamed:
+%       algorithm -> scholmdAlgorithm
+%       algorithm* -> scholmdAlgorithm*
+%       listofalgorithms -> scholmdListofalgorithms
+\let\scholmdAlgorithm\algorithm
+\let\endscholmdAlgorithm\endalgorithm
+\let\algorithm\relax \let\endalgorithm\relax
+\let\scholmdListofalgorithms\listofalgorithms
+\let\listofalgorithms\relax
+{
+ \catcode`\*=11\relax
+ \global\let\scholmdAlgorithm*\algorithm*
+ \global\let\endscholmdAlgorithm*\endalgorithm*
+ \global\let\algorithm*\relax 
+ \global\let\endalgorithm*\relax
+}
 $endif$
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
