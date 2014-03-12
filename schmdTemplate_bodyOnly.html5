@@ -47,7 +47,6 @@ $toc$
 $endif$
 $body$
 
-$if(math)$
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -55,6 +54,7 @@ MathJax.Hub.Config({
     },
     TeX: {
         TagSide: "left",
+        TagIndent: "2em",
         equationNumbers: {
             autoNumber: "AMS"
         },
@@ -73,6 +73,7 @@ MathJax.Hub.Config({
     }
 });
 </script>
+$if(math)$
 $math$
 $endif$
 $for(include-after)$
