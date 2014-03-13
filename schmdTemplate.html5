@@ -2,8 +2,10 @@
 <html$if(lang)$ lang="$lang$"$endif$>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width">
+  
 $for(author-meta)$
   <meta name="author" content="$author-meta$">
 $endfor$
@@ -31,9 +33,12 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
+<div class="scholmd-container">
+<div class="scholmd-main">
 $for(include-before)$
 $include-before$
 $endfor$
+<div class="scholmd-content">
 $if(title)$
 <header>
 $if(subtitle)$
@@ -75,7 +80,8 @@ $toc$
 </nav>
 $endif$
 $body$
-
+</div>
+</div>
 $if(math)$
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -107,5 +113,6 @@ $endif$
 $for(include-after)$
 $include-after$
 $endfor$
+</div>
 </body>
 </html>

@@ -7,9 +7,9 @@ tags: [test, markdown, scholarly]
 date: January 1, 2000
 ---
 
-# Scholarly Markdown math support
+## Scholarly Markdown math support
 
-## Math as (fenced) code blocks
+### Math as (fenced) code blocks
 
 This is a line of text with a `simple code block` in it.
 
@@ -94,7 +94,7 @@ Referencing using the `\eqref` tag: Equation (#middleAlignMathNumber).
 
 Below is more internal vertical alignment tests. The first is one that uses `cases` internally:
 ```math
-#matheqn2
+    #matheqn2
     P_{r-j}=\begin{cases}
     0& \ensuremath\text{if $r-j$ is odd},\\
     r!\,(-1)^{(r-j)/2}& \text{if $r-j$ is even},
@@ -111,7 +111,7 @@ and another one that uses `aligned` internally.
 ```
 
 
-## Math and lists type 2
+### Math and lists
 
 Here's a list with both inline and display math environments:
 
@@ -136,15 +136,15 @@ Here's a list with both inline and display math environments:
     1. Numerical Item 1
     2. Numerical item 2
 
-# Scholarly Figures
+## Scholarly Figures
 
-## References to image with attributes
+### References to image with attributes
 
 This line refers to Figure [#reginfig5]
 
 This line refers to Equation (#matheqn3)
 
-## Images with attributes
+### Images with attributes
 
 The following will be a bunch of figures with attributes:
 ![Regular link with attributes](http://i.imgur.com/T2geA8K.jpg){#reglink width=20%}
@@ -155,22 +155,24 @@ Which should all show fine and display a picture with a baby seal.
 
 Below is more text so that the css doesn't end abruptly! Now we'll have an explicit Scholarly Figure environment!
 
-### Figure: {#figure1}
+### Scholarly markdown figure/multifigures
+
+#### Figure: {#figure1}
 ![sub](http://i.imgur.com/T2geA8K.jpg){#reginfig1 width=20%}
 ![subfig](http://i.imgur.com/T2geA8K.jpg){width=20%}
 ![subsub](http://i.imgur.com/T2geA8K.jpg){#reginfig3 width=20%}
 Reference link in its own paragraph and long caption Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
 
-### Figure: {#figure2}
+#### Figure: {#figure2 .wide}
 ![fdsaf](http://i.imgur.com/T2geA8K.jpg){#reginfig4 width=40%}
 ![woogawooga](http://i.imgur.com/T2geA8K.jpg){#reginfig5 width=40%}
 Reference link in its own paragraph and long caption Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
 
-# Algorithms
+## Algorithms
 
 Here are some algorithms using various methods
 
-### Algorithm: Gauss-sidel using line blocks {#alg:gs}
+#### Algorithm: Gauss-sidel using line blocks {#alg:gs}
 
 |  **Inputs**: variables ``A, b``
 |  **Output**: ``\phi``
@@ -189,7 +191,6 @@ Here are some algorithms using various methods
 |     check if convergence is reached
 |  **end** (repeat)
 
+: caption for this algorithm
 
-### Algorithm: EPSI using `algorithmic` {#alg:epsi}
-![here is a picture](picgif.png)
-This is the caption of the Algorithm (see [#freedom])
+

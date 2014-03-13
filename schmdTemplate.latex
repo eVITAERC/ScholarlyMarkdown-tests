@@ -1,3 +1,14 @@
+% Some classes load the `subfigure` package which clashes with
+% our internal use of `subfig` for subfloats. We are most likely
+% not going to need the canned subfigure functionality anyways,
+% so we'll trick LaTeX into thinking it already loaded `subfigure`
+\makeatletter
+\newcommand{\dontusepackage}[2][]{%
+  \@namedef{ver@#2.sty}{9999/12/31}%
+  \@namedef{opt@#2.sty}{#1}}
+\makeatother
+\dontusepackage{subfigure}
+%
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -84,8 +95,25 @@ $if(graphics)$
  \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}
 }
 $endif$
+$if(floats)$
 \usepackage{caption}
+\usepackage{float}
+% Override extremely conservative LaTeX float placement rules
+% (might need to be removed for "manuscript" styles)
+\renewcommand{\topfraction}{0.85}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.75}	% max fraction of floats at bottom
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.85}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.10}	% allow minimal text w. figs
+\renewcommand{\floatpagefraction}{0.75}	% require fuller float pages
+\renewcommand{\dblfloatpagefraction}{0.75}	% require fuller float pages
+$endif$
+$if(subfigures)$
 \usepackage{subfig}
+$endif$
 $if(algorithms)$
 \usepackage{algorithm} % <- from the `algorithms` package
 % Rename the `algorithm` float environment so that it doesn't
