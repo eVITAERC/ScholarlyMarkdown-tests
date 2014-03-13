@@ -33,7 +33,7 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
-<div class="scholmd-container">
+<div class="scholmd-container container">
 <div class="scholmd-main">
 $for(include-before)$
 $include-before$
