@@ -1,8 +1,8 @@
 ---
 title:  'Scholarly Markdown: a Markdown-compatible format for academic communication'
 author: |
-    Author 1 and Author 2  
-    Some affiliation or something
+        | Tim Lin, *University of British Columbia*
+        | (with help form a bunch of people)
 tags: [test, markdown, scholarly]
 date: January 1, 2000
 ---
@@ -84,14 +84,6 @@ The following has an ampersand and line breaks in comma, but is actually a singl
 |y|\ \&\ |x| % an & and \\ that should be ignored
 = 99\% z    % an & and \\ that should be ignored
 ```
-
-
-Here are two proposed internal link to the previous math equations.
-
-Referencing using the `\ref` tag: Equation [#matheqn1].
-
-Referencing using the `\eqref` tag: Equation (#middleAlignMathNumber).
-
 Below is more internal vertical alignment tests. The first is one that uses `cases` internally:
 ```math
     #matheqn2
@@ -136,13 +128,31 @@ Here's a list with both inline and display math environments:
     1. Numerical Item 1
     2. Numerical item 2
 
+## Scholarly X-refs
+
+### References to figures
+
+This line refers to Figure [#figure2].
+
+This line refers to subfigure (#reginfig3).
+
+### References to equations
+
+This line refers to Equation (#matheqn3).
+
+Referencing using the `\ref` tag: Equation [#matheqn1].
+
+Referencing using the `\eqref` tag: Equation (#middleAlignMathNumber).
+
+### Automatic non-breaking spaces
+
+Any cross-references (such as Equation [#middleAlignMathNumber]) will
+automatically be prepended with non-breaking spaces.
+
+Unless, they appear in a list like equations [#matheqn1], [#matheqn2],
+[#matheqn3], and [#middleAlignMathNumber].
+
 ## Scholarly Figures
-
-### References to image with attributes
-
-This line refers to Figure [#reginfig5]
-
-This line refers to Equation (#matheqn3)
 
 ### Images with attributes
 
@@ -173,22 +183,140 @@ Reference link in its own paragraph and long caption Lorem ipsum dolor sit amet,
 Here are some algorithms using various methods
 
 #### Algorithm: Gauss-sidel using line blocks {#alg:gs}
+| ` 1.` **Inputs**: variables ``A, b``
+| ` 2.` **Output**: ``\phi``                `//this is a comment`
+|  
+| ` 3.` Choose an initial guess ``\phi`` to the solution
+| ` 4.`  **repeat** until convergence
+| ` 5.`    **for** ``i`` **from** 1 **until** ``n`` **do**
+| ` 6.`        ``\sigma \leftarrow 0``
+| ` 7.`        **for** ``j`` **from** 1 **until** ``n`` **do**
+| ` 8.`            **if** ``j \ne i`` **then**
+| ` 9.`               ``\sigma \leftarrow \sigma + a_{ij} \phi_j``
+| `10.`            **end if**
+| `11.`        **end** (``j``-loop)
+| `12.`        ``\phi_i \leftarrow \frac 1 {a_{ii}} (b_i - \sigma)``
+| `13.`    **end** (``i``-loop)
+| `14.`    check if convergence is reached
+| `15.` **end** (repeat)
+
+: caption for this algorithm
+
+#### Algorithm: Gauss-sidel using `line-blocks` {#alg:gs2}
+
 |  **Inputs**: variables ``A, b``
 |  **Output**: ``\phi``
 | 
 |  Choose an initial guess ``\phi`` to the solution
 |  **repeat** until convergence
-|     **for** ``i`` **from** 1 **until** ``n`` **do**
-|         ``\sigma \leftarrow 0``
-|         **for** ``j`` **from** 1 **until** ``n`` **do**
-|             **if** ``j \ne i`` **then**
-|                 ``\sigma \leftarrow \sigma + a_{ij} \phi_j``
-|             **end if**
-|         **end** (``j``-loop)
-|         ``\phi_i \leftarrow \frac 1 {a_{ii}} (b_i - \sigma)``
-|     **end** (``i``-loop)
-|     check if convergence is reached
+|       **for** ``i`` from 1 to ``n`` **do**
+|           ``\sigma \leftarrow 0``
+|           **for** ``j`` from 1 to ``n`` **do**
+|                **if** ``j \ne i`` **then**
+|                     ``\sigma \leftarrow \sigma + a_{ij} \phi_j``
+|                **end if**
+|           **end** (``j``-loop)
+|           ``\phi_i \leftarrow \frac 1 {a_{ii}} (b_i - \sigma)``
+|       **end** (``i``-loop)
+|       check if convergence is reached
 |  **end** (repeat)
 
-: caption for this algorithm
+The should not be a caption
+
+#### Algorithm: Gauss-sidel using `line-blocks` {#alg:gs3}
+
+|  **Inputs**: variables ``A, b``
+|  **Output**: ``\phi``
+| 
+|  Choose an initial guess ``\phi`` to the solution
+|  **repeat** until convergence
+|       **for** ``i`` from 1 to ``n`` **do**
+|           ``\sigma \leftarrow 0``
+|           **for** ``j`` from 1 to ``n`` **do**
+|                **if** ``j \ne i`` **then**
+|                     ``\sigma \leftarrow \sigma + a_{ij} \phi_j``
+|                **end if**
+|           **end** (``j``-loop)
+|           ``\phi_i \leftarrow \frac 1 {a_{ii}} (b_i - \sigma)``
+|       **end** (``i``-loop)
+|       check if convergence is reached
+|  **end** (repeat)
+This should should be a caption
+
+
+## Abstract:
+
+This is the abstract! It should show up at the beginning of the page.
+
+## Tables
+
+### Standard Pandoc tables
+
+The following is a normal Pandoc table
+
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+
+Table: Thisis a caption
+
+This should not be a caption
+
+### Scholarly tables
+
+The following is a floated ScholMD table
+
+#### Table: example ScholMD table {#tab:exscholmd}
+
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+
+:   This is a really really really really really
+    really really really really really really really
+    really really really really really really really really
+    really really really really really really really long caption
+
+## Code blocks
+
+### Standard Pandoc code blocks
+
+#### fenced blocks
+
+```
+Value    [0-9.]+ / '(' Expr ')'
+Product  Expr (('*' / '/') Expr)*
+Sum      Expr (('+' / '-') Expr)*
+Expr     Product / Sum / Value
+```
+
+#### indented blocks
+
+    Value    [0-9.]+ / '(' Expr ')'
+    Product  Expr (('*' / '/') Expr)*
+    Sum      Expr (('+' / '-') Expr)*
+    Expr     Product / Sum / Value
+
+### Scholarly code block floats
+
+
+#### Code: PEG for calc {#lst:pegcalc}
+``` {#mycode .c .numberLines startFrom="100"}
+Value    [0-9.]+ / '(' Expr ')'
+Product  Expr (('*' / '/') Expr)*
+Sum      Expr (('+' / '-') Expr)*
+Expr     Product / Sum / Value
+```
+[Parsing Expression Grammar](http://en.wikipedia.org/wiki/Parsing_expression_grammar) rules for a simple calculator.
+
+#### Code: PEG for calc {#lst:pegcalc2}
+    Value    [0-9.]+ / '(' Expr ')'
+    Product  Expr (('*' / '/') Expr)*
+    Sum      Expr (('+' / '-') Expr)*
+    Expr     Product / Sum / Value
+[Parsing Expression Grammar](http://en.wikipedia.org/wiki/Parsing_expression_grammar) rules for a simple calculator.
 
