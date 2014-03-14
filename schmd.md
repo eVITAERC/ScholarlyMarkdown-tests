@@ -304,12 +304,30 @@ Expr     Product / Sum / Value
 ### Scholarly code block floats
 
 
-#### Code: PEG for calc {#lst:pegcalc}
+#### Code: PEG for calc {#lst:kaczsweeps}
 ``` {#mycode .c .numberLines startFrom="100"}
-Value    [0-9.]+ / '(' Expr ')'
-Product  Expr (('*' / '/') Expr)*
-Sum      Expr (('+' / '-') Expr)*
-Expr     Product / Sum / Value
+for(i=start_row;i<end_row;i++){
+  c.real = b[i+(long)idx[ncol/2]].real;
+  c.imag = b[i+(long)idx[ncol/2]].imag;
+  for(j=0;j<ncol;j++){
+    k = i + (long)idx[j] - (start_row- firstdims);
+    if(0<=k && k<ny){
+      c.real -= R[i*ncol + j].real*y[k].
+          real - R[i*ncol + j].imag*y[k].
+          imag;
+      c.imag -= R[i*ncol + j].real*y[k].
+          imag + R[i*ncol + j].imag*y[k].
+          real; } }
+  c.real *= w;
+  c.imag *= w;
+  for(j=0;j<ncol;j++){
+    k = i + (long)idx[j] - (start_row- firstdims);
+    if(0<=k && k<ny){
+      y[k].real += c.real*R[i*ncol + j].
+        real + c.imag*R[i*ncol + j].imag;
+      y[k].imag += c.imag*R[i*ncol + j].
+        real - c.real*R[i*ncol + j].imag;
+}}}
 ```
 [Parsing Expression Grammar](http://en.wikipedia.org/wiki/Parsing_expression_grammar) rules for a simple calculator.
 

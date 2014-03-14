@@ -13,6 +13,7 @@
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\usepackage[usenames,dvipsnames]{color}
 \usepackage{fixltx2e} % provides \textsubscript
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -61,6 +62,20 @@ $endif$
 $endif$
 $if(listings)$
 \usepackage{listings}
+% Define slightly more reasonable Listings defaults
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=lines,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color[gray]{0.4}\bfseries,
+    commentstyle=\color[gray]{0.65}\itshape,
+    numbers=left,
+    captionpos=b,
+}
 $endif$
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
