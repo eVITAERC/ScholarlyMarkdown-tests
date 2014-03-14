@@ -173,7 +173,6 @@ Reference link in its own paragraph and long caption Lorem ipsum dolor sit amet,
 Here are some algorithms using various methods
 
 #### Algorithm: Gauss-sidel using line blocks {#alg:gs}
-
 |  **Inputs**: variables ``A, b``
 |  **Output**: ``\phi``
 | 
@@ -192,5 +191,4 @@ Here are some algorithms using various methods
 |  **end** (repeat)
 
 : caption for this algorithm
-
 

@@ -54,7 +54,7 @@ MathJax.Hub.Config({
     },
     TeX: {
         TagSide: "left",
-        TagIndent: "2em",
+        TagIndent: "1.2em",
         equationNumbers: {
             autoNumber: "AMS"
         },
